@@ -1,0 +1,125 @@
+server:
+  port: 8181
+  servlet:
+    context-path: /api
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    servlet:
+      content-type: text/html
+    enabled: true
+    encoding: UTF-8
+    mode: HTML5
+    cache: false
+spring:
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+  banner:
+    charset: UTF-8
+    location: classpath:banner.txt
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://120.46.85.139:3306/me-admin?useUnicode=true&characterEncoding=utf8&useSSL=false&useServerPrepStmts=true&allowPublicKeyRetrieval=true
+    username: me-admin
+    password: 3tPRThjzNAX6pwjP
+    type: com.alibaba.druid.pool.DruidDataSource
+  main:
+    allow-circular-references: true
+
+  redis:
+    host: 120.46.85.139
+    port: 6379
+    password: qwertyuiop
+    timeout: 5000
+    lettuce:
+      pool:
+        # 连接池最大连接数
+        max-active: 200
+        # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-wait: -1ms
+        # 连接池中的最大空闲连接
+        max-idle: 10
+        # 连接池中的最小空闲连接
+        min-idle: 0
+
+# 开启xss，默认开启
+mica:
+  xss:
+    enabled: true
+    enable-escape: false
+    mode: clear
+    path-exclude-patterns:
+    path-patterns: /**
+    pretty-print: false
+    trim-text: true
+
+#发送邮件相关配置
+mail:
+  host: smtp.exmail.qq.com
+  username: me_admin@meadmin.wecom.work
+  password: 62eiJSP6ypjkb7Kp
+  fromMail:
+    fromAddress: me_admin@meadmin.wecom.work
+
+
+#配置加密
+jasypt:
+  encryptor:
+    password:
+    algorithm: PBEWithMD5AndDES
+    iv-generator-classname: org.jasypt.iv.NoIvGenerator
+
+
+# 行为验证码相关配置
+# 滑块验证码配置， 详细请看 cloud.tianai.captcha.autoconfiguration.ImageCaptchaProperties 类
+captcha:
+  # 如果项目中使用到了redis，滑块验证码会自动把验证码数据存到redis中， 这里配置redis的key的前缀,默认是captcha:slider
+  prefix: captcha
+  # 验证码过期时间，默认是2分钟,单位毫秒， 可以根据自身业务进行调整
+  expire:
+    # 默认缓存时间 2分钟
+    default: 10000
+    # 针对 点选验证码 过期时间设置为 2分钟， 因为点选验证码验证比较慢，把过期时间调整大一些
+    WORD_IMAGE_CLICK: 20000
+  # 使用加载系统自带的资源， 默认是 false
+  init-default-resource: false
+  cache:
+    # 缓存控制， 默认为false不开启
+    enabled: true
+    # 验证码会提前缓存一些生成好的验证数据， 默认是20
+    cacheSize: 20
+    # 缓存拉取失败后等待时间 默认是 5秒钟
+    wait-time: 5000
+    # 缓存检查间隔 默认是2秒钟
+    period: 2000
+  secondary:
+    # 二次验证， 默认false 不开启
+    enabled: false
+    # 二次验证过期时间， 默认 2分钟
+    expire: 120000
+    # 二次验证缓存key前缀，默认是 captcha:secondary
+    keyPrefix: "captcha:behaviorVerificationCode"
+
+sa-token:
+  #Aes加密配置
+  aes-secret-key: QugtUhBXGUcsFkW7HT3TLNo9UdBGXxEGar2iGRICyim1rEYhR4
+  # token jwt生成秘钥
+  jwt-secret-key: OiWk86fXE26D4dw4eFJ4ITJFqBIoKbyvYsdyhPI3mmPVF47kVR
+  # token 名称（同时也是 cookie 名称）
+  token-name: Token
+  # token 有效期（单位：秒） 默认一个小时，-1 代表永久有效
+  timeout: 3600
+  # token 最低活跃频率（单位：秒），如果 token 超过此时间没有访问系统就会被冻结，默认-1 代表不限制，永不冻结
+  active-timeout: -1
+  # 是否允许同一账号多地同时登录 （为 true 时允许一起登录, 为 false 时新登录挤掉旧登录）
+  is-concurrent: false
+  # 在多人登录同一账号时，是否共用一个 token （为 true 时所有登录共用一个 token, 为 false 时每次登录新建一个 token）
+  is-share: false
+  # token 风格（默认可取值：uuid、simple-uuid、random-32、random-64、random-128、tik）
+  token-style: tik
+  # 是否输出操作日志
+  is-log: false
+
+

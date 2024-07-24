@@ -1,0 +1,24 @@
+@import './base.less';
+@import './fade.less';
+@import './scale.less';
+@import './slide.less';
+@import './scroll.less';
+@import './zoom.less';
+
+.collapse-transition {
+  transition: 0.2s height ease-in-out, 0.2s padding-top ease-in-out, 0.2s padding-bottom ease-in-out;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #c0c0c0;
+  border-radius: 3px;
+}
